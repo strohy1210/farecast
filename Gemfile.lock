@@ -43,6 +43,8 @@ GEM
     execjs (2.2.2)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    figaro (1.0.0)
+      thor (~> 0.14)
     hashie (3.3.2)
     hike (1.2.3)
     httparty (0.13.3)
@@ -147,6 +149,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   echonest-ruby-api
+  figaro
   jbuilder (~> 2.0)
   jquery-rails
   json

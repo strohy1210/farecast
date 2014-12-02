@@ -9,12 +9,20 @@ class Artist < ActiveRecord::Base
   end
 
   def spotify_popularity
-  result = RSpotify::Artist.search(self.name)
-  result[0].popularity
+    result = RSpotify::Artist.search(self.name)
+    result[0].popularity
   end
 
-# artist = Echonest::Artist.new('NZV019XONS1GTDODA', 'The 1975')
-# artist.familiarity
-# artist.hotttnesss
+  def echonest_connect
+    Echonest::Artist.new("#{ENV['echonest_api_key']}", "#{self.name}")
+  end  
+
+  def echonest_familiarity
+    echonest_connect.familiarity
+  end  
+
+  def echonest_hotttnesss
+    echonest_connect.hotttnesss
+  end
 
 end
