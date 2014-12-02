@@ -10,7 +10,7 @@ class CreateConcerts < ActiveRecord::Migration
       t.boolean :sold_out         #TicketFly
 
       t.float :spotify_popularity
-      t.float :sg_seatgeek_popularity
+      t.float :sg_popularity
       t.float :sg_venue_popularity
       t.float :echo_familiarity
       t.float :echo_hotttnesss
