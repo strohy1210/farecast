@@ -29,6 +29,7 @@ gem 'rspotify'
 gem 'json'
 gem 'echonest-ruby-api'
 gem 'figaro'
+gem 'pry', '~> 0.10.1'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
