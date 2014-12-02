@@ -1,8 +1,8 @@
 class CreateVenues < ActiveRecord::Migration
   def change
     create_table :venues do |t|
-      t.string :name
-      t.integer :capacity
+      t.string :name        #SeatGeek
+      t.integer :capacity   #Manually
 
       t.timestamps
     end
