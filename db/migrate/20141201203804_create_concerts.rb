@@ -1,4 +1,4 @@
-class CreateEvents < ActiveRecord::Migration
+class CreateConcerts < ActiveRecord::Migration
   def change
     create_table :concerts do |t|
       t.integer :artist_id
@@ -7,7 +7,8 @@ class CreateEvents < ActiveRecord::Migration
       t.string :name
       t.datetime :show_time
       t.decimal :face_value         #TicketFly
-      
+      t.boolean :sold_out         #TicketFly
+
       t.float :spotify_popularity
       t.float :sg_seatgeek_popularity
       t.float :sg_venue_popularity
