@@ -6,11 +6,11 @@ class CreateConcerts < ActiveRecord::Migration
 
       t.string :name
       t.datetime :show_time
-      t.decimal :face_value         #TicketFly
+      t.float :face_value         #TicketFly
       t.boolean :sold_out         #TicketFly
 
       t.float :spotify_popularity
-      t.float :sg_seatgeek_popularity
+      t.float :sg_popularity
       t.float :sg_venue_popularity
       t.float :echo_familiarity
       t.float :echo_hotttnesss
