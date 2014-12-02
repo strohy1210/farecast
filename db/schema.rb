@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20141201204155) do
     t.datetime "show_time"
     t.decimal  "face_value"
     t.float    "spotify_popularity"
-    t.float    "sg_seatgeek_popularity"
+    t.float    "sg_popularity"
     t.float    "sg_venue_popularity"
     t.float    "echo_familiarity"
     t.float    "echo_hotttnesss"

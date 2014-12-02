@@ -8,22 +8,49 @@ class Concert < ActiveRecord::Base
     @popularity_index = (seatgeek_weight*self.seatgeek_popularity + spotify_weight*self.spotify_popularity)
   end
 
-  def farecast_buy_score
-    self.popularity_index   70
-    self.venue.capacity # 
+  def add_popularity
+    self.update(
+      :spotify_popularity => calc_spotify_popularity, 
+      :sg_popularity => calc_seatgeek_popularity,
+      :echo_familiarity => calc_echonest_familiarity,
+      :echo_hotttnesss => calc_echonest_hotttnesss
+      )
+  end  
 
-    @pop_to_capacity_scale = {
-      85 => 1400,
-      60 => 550,
-      55 => 600,
-      40 => 300
-    }
-    
+  def calc_seatgeek_popularity
+    name_slug = self.artist.name.downcase.gsub(" ", "-")
+    result = JSON.load(open("http://api.seatgeek.com/2/events?performers.slug=#{name_slug}"))
+    (result["events"][0]["performers"][0]["score"] * 100).round(1) 
   end
 
-  def spotify_follower_index
-    self.artist_followers
-    most_popular_artists= {'Kanye' => 2200000, 'Lady Gaga' => 1200000, 'One Direction' => 2600000, 'Justin Bieber' => 2245000, 'Beyonce' => 2200000 }
+  def spotify_connect
+    RSpotify::Artist.search(self.artist.name)
+  end
+
+  def calc_spotify_popularity
+    spotify_connect[0].popularity
+  end
+
+  def recent_album?
+    album = spotify_connect[0].albums.first.release_date
+    num_of_days = (Date.today - Date.parse(album)).to_i
+    if num_of_days < 180
+      true
+    else
+      false
+    end    
+  end  
+
+  def echonest_connect
+    Echonest::Artist.new("#{ENV['echonest_api_key']}", "#{self.artist.name}")
+  end  
+
+  def calc_echonest_familiarity
+    (echonest_connect.familiarity * 100).round(1)
+  end  
+
+  def calc_echonest_hotttnesss
+    (echonest_connect.hotttnesss * 100).round(1)
   end
 
 end
