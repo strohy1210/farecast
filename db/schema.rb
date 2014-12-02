@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20141201204155) do
     t.integer  "venue_id"
     t.string   "name"
     t.datetime "show_time"
-    t.decimal  "face_value"
+    t.float    "face_value"
     t.boolean  "sold_out"
     t.float    "spotify_popularity"
     t.float    "sg_popularity"

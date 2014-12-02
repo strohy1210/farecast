@@ -7,6 +7,14 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # ARTISTS
+
+ require 'date'
+
+ date_timeformat = DateTime.parse("12.2")
+
+# v= Venue.create(name: "Glasslands Gallery", capacity: 300)
+
+# hash = JSON.parse(json_data)
 # Artist.create([{:name => 'The Shadowboxers',:new_album => true}, #sold out (2 shows)
 #               {:name => 'The 1975',:new_album => false},    #sold out
 #               {:name => 'tUnE-yArDs',:new_album => true},  # sold out (2 shows in a row)
