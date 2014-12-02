@@ -20,15 +20,17 @@ ActiveRecord::Schema.define(version: 20141201204155) do
     t.datetime "updated_at"
   end
 
-  create_table "events", force: true do |t|
+  create_table "concerts", force: true do |t|
     t.integer  "artist_id"
     t.integer  "venue_id"
-    t.integer  "artist_followers"
-    t.integer  "spotify_popularity"
     t.string   "name"
-    t.datetime "time"
-    t.float    "seatgeek_popularity"
-    t.decimal  "current_min_price"
+    t.datetime "show_time"
+    t.decimal  "face_value"
+    t.float    "spotify_popularity"
+    t.float    "sg_seatgeek_popularity"
+    t.float    "sg_venue_popularity"
+    t.float    "echo_familiarity"
+    t.float    "echo_hotttnesss"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

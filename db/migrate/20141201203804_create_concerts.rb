@@ -1,4 +1,4 @@
-class CreateEvents < ActiveRecord::Migration
+class CreateConcerts < ActiveRecord::Migration
   def change
     create_table :concerts do |t|
       t.integer :artist_id
