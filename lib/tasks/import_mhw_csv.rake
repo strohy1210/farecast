@@ -1,5 +1,6 @@
 require 'csv'
 require 'pry'
+require 'date'
 
 namespace :import_musichall_csv do
   desc "Import musichall CSV Data"
@@ -9,7 +10,7 @@ namespace :import_musichall_csv do
     csv.each do |row|
       # binding.pry
       venue = Venue.find_by(name: "Music Hall of Williamsburg") || Venue.create(name: "Music Hall of Williamsburg", capacity: 550)
-      show_time = DateTime.parse(row[1])
+      show_time = DateTime.parse(row[1].gsub(".", "/"))
       name = row[0]
       venue_id = venue.id
      

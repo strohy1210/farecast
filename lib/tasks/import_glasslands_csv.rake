@@ -1,14 +1,15 @@
 require 'csv'
 require 'pry'
+require 'date'
 namespace :import_glasslands_csv do
   desc "Import CSV Data"
   task :create_concerts => :environment do
     csv_text = File.read('glasslands_events.csv')
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
-      binding.pry
+      # binding.pry
       venue = Venue.find_by(name: row[3]) || venue = Venue.create(name: row[3])
-      show_time = DateTime.parse(row[1])
+      show_time = DateTime.parse(row[1].gsub(".", "/"))
       name = row[2]
       venue_id = venue.id
       face_value = row[4].split(" - ").first[1..5].to_f
@@ -18,7 +19,7 @@ namespace :import_glasslands_csv do
       else
         sold_out =false
       end
-  a = Artist.create(name: row[2])    
+  a = Artist.find_by(name: name) ||  Artist.create(name: name)    
 
       c= Concert.create!(name: name, show_time: show_time, artist_id: a.id, sold_out: sold_out, venue_id: venue_id, face_value: face_value)
     end 
