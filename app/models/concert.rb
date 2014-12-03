@@ -17,17 +17,21 @@ class Concert < ActiveRecord::Base
       
   def add_popularity
     self.update(
-      :spotify_popularity => calc_spotify_popularity, 
-      :sg_popularity => calc_seatgeek_popularity,
-      :echo_familiarity => calc_echonest_familiarity,
-      :echo_hotttnesss => calc_echonest_hotttnesss
+      # :spotify_popularity => calc_spotify_popularity, 
+      :sg_popularity => calc_seatgeek_popularity
+      # :echo_familiarity => calc_echonest_familiarity,
+      # :echo_hotttnesss => calc_echonest_hotttnesss
       )
   end  
 
   def calc_seatgeek_popularity
-    name_slug = self.artist.name.downcase.gsub(" ", "-")
-    result = JSON.load(open("http://api.seatgeek.com/2/events?performers.slug=#{name_slug}"))
-    (result["events"][0]["performers"][0]["score"] * 100).round(1) 
+    if self.artist.name.match(/^[a-zA-Z\s\w.-]+$/)
+      name_slug = self.artist.name.downcase.gsub(" ", "-").gsub(".", "")
+      result = JSON.load(open("http://api.seatgeek.com/2/performers?slug=#{name_slug}"))
+    end
+    if result && result["performers"] != []
+      (result["performers"][0]["score"] * 100).round(1) 
+    end
   end
 
   def spotify_connect
@@ -35,7 +39,9 @@ class Concert < ActiveRecord::Base
   end
 
   def calc_spotify_popularity
-    spotify_connect[0].popularity
+    if spotify_connect[0]
+      spotify_connect[0].popularity
+    end
   end
 
   def recent_album?
@@ -53,11 +59,15 @@ class Concert < ActiveRecord::Base
   end  
 
   def calc_echonest_familiarity
-    (echonest_connect.familiarity * 100).round(1)
+    if echonest_connect.familiarity
+      (echonest_connect.familiarity * 100).round(1)
+    end  
   end  
 
   def calc_echonest_hotttnesss
-    (echonest_connect.hotttnesss * 100).round(1)
+    if echonest_connect.hotttnesss
+      (echonest_connect.hotttnesss * 100).round(1)
+    end
   end
 
 
