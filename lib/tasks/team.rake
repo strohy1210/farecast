@@ -9,3 +9,16 @@ namespace :db do
     puts
   end
 end
+
+namespace :db do
+  desc "Adds all the CSVs!"
+  task :import_csvs => :environment do
+    
+    Rake::Task['db:import_drom_csv'].invoke
+    Rake::Task['db:import_glasslands_csv'].invoke
+    Rake::Task['db:import_musichall_csv'].invoke
+    
+    puts "  CSV's ADDED!"
+    puts
+  end
+end

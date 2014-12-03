@@ -1,9 +1,9 @@
 require 'csv'
 require 'pry'
 require 'date'
-namespace :import_drom_csv do
+namespace :db do
   desc "Import CSV Data"
-  task :create_concerts => :environment do
+  task :import_drom_csv => :environment do
     csv_text = File.read('drom.csv')
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|

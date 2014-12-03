@@ -17,7 +17,7 @@ class Concert < ActiveRecord::Base
       
   def add_popularity
     self.update(
-      # :spotify_popularity => calc_spotify_popularity, 
+      :spotify_popularity => calc_spotify_popularity, 
       :sg_popularity => calc_seatgeek_popularity
       # :echo_familiarity => calc_echonest_familiarity,
       # :echo_hotttnesss => calc_echonest_hotttnesss

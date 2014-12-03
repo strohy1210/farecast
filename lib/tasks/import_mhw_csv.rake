@@ -2,9 +2,9 @@ require 'csv'
 require 'pry'
 require 'date'
 
-namespace :import_musichall_csv do
+namespace :db do
   desc "Import musichall CSV Data"
-  task :create_concerts => :environment do
+  task :import_musichall_csv => :environment do
     csv_text = File.read('musichall.csv')
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|

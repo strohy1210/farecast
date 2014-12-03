@@ -1,9 +1,9 @@
 require 'csv'
 require 'pry'
 require 'date'
-namespace :import_glasslands_csv do
+namespace :db do
   desc "Import CSV Data"
-  task :create_concerts => :environment do
+  task :import_glasslands_csv => :environment do
     csv_text = File.read('glasslands_events.csv')
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
