@@ -3,17 +3,11 @@ require 'pry'
 namespace :import_glasslands_csv do
   desc "Import CSV Data"
   task :create_concerts => :environment do
-    if Venue.find_by(name: "Glasslands Gallery")
-      venue = Venue.find_by(name: "Glasslands Gallery")
-    else
-      venue = Venue.create(name: "Glasslands Gallery", capacity: 300)
-    end
- 
     csv_text = File.read('glasslands_events.csv')
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
-      # binding.pry
-
+      binding.pry
+      venue = Venue.find_by(name: row[3]) || venue = Venue.create(name: row[3])
       show_time = DateTime.parse(row[1])
       name = row[2]
       venue_id = venue.id
@@ -30,7 +24,7 @@ namespace :import_glasslands_csv do
     end 
   end
 end 
-
+ 
 
 # namespace :csv do
 
