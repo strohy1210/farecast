@@ -26,7 +26,7 @@ class Concert < ActiveRecord::Base
 
   def calc_seatgeek_popularity
     name_slug = self.artist.name.downcase.gsub(" ", "-")
-    result = JSON.load(open("http://api.seatgeek.com/2/events?performers.slug=#{name_slug}"))
+    result = JSON.load(open("http://api.seatg`k.com/2/events?performers.slug=#{name_slug}"))
     (result["events"][0]["performers"][0]["score"] * 100).round(1) 
   end
 
