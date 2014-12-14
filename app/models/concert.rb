@@ -72,5 +72,20 @@ class Concert < ActiveRecord::Base
     end
   end
 
+  def self.soldout_spotify
+    
+    Concert.all.where.not(spotify_popularity: nil).where(sold_out: true).map do |c|
+        [c.face_value, c.spotify_popularity]
+    end
+
+
+  end
+  def self.not_soldout_spotify
+    
+    Concert.all.where.not(spotify_popularity: nil).where(sold_out: false).map do |c|
+        [c.face_value, c.spotify_popularity]
+    end
+
+  end
 
 end
